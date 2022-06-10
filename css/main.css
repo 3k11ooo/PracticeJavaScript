@@ -18,3 +18,10 @@ body{
     max-height: 90vh;
     width: auto;
 }
+
+#displayTimer{
+    font-size: 38px;
+    height: 100px;
+    max-height: 90vh;
+    width: auto;
+}
