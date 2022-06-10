@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/main.css" rel="stylesheet">
+    <title>メイン</title>
+        
+
+    <script>
+
+        //セレクトボックスに対応するリンク先を配列に入れる
+        var jpURL = new Array(
+            " ",
+            "../Practice02/move.html",
+            "../Practice02/nowTime.html",
+            "../Practice02/timer.html"
+        );
+
+        //リンク先へジャンプさせる関数
+        function selectNavi(){
+            var num;
+          
+          //何番目のoptionが選択されたか調べる
+            num = document.navi.contents.selectedIndex;
+
+           //最初の項目以外が選択された時にジャンプする
+            if ( num != 0 ) window.open(jpURL[num], "", "width=640,height=480,left=100,top=50");
+        }
+
+        // iframe
+        function ifr(jpURL){
+            waku.location = jpURL;
+        }
+        
+        // 指定したウィンドウ名でサブウィンドウを表示させる
+        function winOpen(jpURL){
+            window.open(jpURL, "","width=320,height=240,left=100,top=50");
+        }
+
+
+        //更新
+        function koshin(){
+        location.reload();
+        }
+
+        //履歴を指定数移動する
+        function rireki(num){
+        history.go(num);
+        }
+
+        // 描画クラス
+        function hyoji()
+        {
+            //表示する文字
+            var str = "一文字ずつ表示します。";  
+        
+            //テキストボックスの文字数
+            var cnt = document.timer.moji.value.length;
+        
+            //文字が全部表示されているか確認
+            if ( cnt < 11 )
+            {
+            //現在より1文字多く切り出して表示
+            document.timer.moji.value = str.substr(0,cnt+1);
+            }
+            else
+            {
+            //全て表示されたら、空文字に戻す
+            document.timer.moji.value = "";
+            }
+        }
+        var timer1;
+        // インターバルスタート
+        function startfnc()
+        {
+            //関数hyoji()を1000ミリ秒間隔で呼び出す
+            timer1 = setInterval("hyoji()",1000);
+        }
+
+        // インターバルストップ
+        function stopfnc()
+        {
+            clearInterval(timer1);
+        }
+
+
+    </script>
+    
+
+</head>
+<body>
+
+    <!-- <form>
+        <input type="button" value="動く窓" onclick="winOpen('../Practice02/move.html')">
+        <input type="button" value="現在時刻" onclick="winOpen('../Practice02/nowTime.html')">
+    </form> -->
+        
+    <!-- <a href="JavaScript:ifr('https://tweetdeck.twitter.com')">iframe key</a>
+    <br>
+    <iframe id="ifr" src="https://www.pazru.net/js/location/5.html" name="waku"></iframe>
+    <br> -->
+    
+    <!-- セレクトボックスでリンク先に飛ぶ -->
+    <div id="selectBox">
+        <form name="navi">
+            <select name="contents" onchange="selectNavi()">
+                <option>Select Content</option>
+                <option>動く窓</option>
+                <option>現在時刻</option>
+                <option>タイマー</option>
+            </select>
+        </form>
+
+    </div>
+
+    <div id="test">
+        <form name="timer">
+            <input type="button" value="スタート" onclick="startfnc()">
+            <input type="button" value="ストップ" onclick="stopfnc()"> <br>
+            <input type="text" name="moji" size="30" value="">
+        </form>
+    </div>
+
+    <!-- ボタンたち -->
+    <input type="button"  value="<<戻る" onclick="rireki(-2)">
+    <input type="button"  value="<戻る" onclick="rireki(-1)">
+    <input type="button"  value="更新" onclick="koshin()">
+    <input type="button"  value="進む>" onclick="rireki(1)">
+    <input type="button"  value="進む>>" onclick="rireki(2)">
+
+    <script>
+    selecctNavi(jpURL, "", "width=320,height=240,left=100,top=50")
+    startfnc();
+    stopfnc();
+    // src="js/main.js">
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+body{
+    font-size: 20px;
+}
+#ifr{
+    height: 900px;
+    max-height: 90vh;
+    width: 100%;
+}
+
+#selectBox{
+    height: 100px;
+    max-height: 90vh;
+    width: auto;
+}
+
+#test{
+    height: 100px;
+    max-height: 90vh;
+    width: auto;
+}

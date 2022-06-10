@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/main.css" rel="stylesheet">
+    <title>現在時刻</title>
+
+    <script>
+    function nowTime(){
+        //今日の日付データを変数hidukeに格納
+        var hiduke=new Date(); 
+        
+        //年・月・日・曜日を取得する
+        var year = hiduke.getFullYear();
+        var month = hiduke.getMonth()+1;
+        var week = hiduke.getDay();
+        var day = hiduke.getDate();
+
+        
+        //時・分・秒を取得する
+        var hour = hiduke.getHours();
+        var minute = hiduke.getMinutes();
+        var second = hiduke.getSeconds();
+
+        var yobi= new Array("日","月","火","水","木","金","土");
+        
+        document.write("西暦"+year+"年"+month+"月"+day+"日 "+yobi[week]+"曜日\n");
+        document.write(hour+":",+minute+":"+second);
+    };
+    </script>
+</head>
+<body>
+    
+    <script>
+        nowTime();
+        // setInterval("nowTime()", 1000);
+        
+    </script>
+</body>
+</html>
