@@ -35,8 +35,8 @@
         //カウントダウン関数
         function countDown()
         {
-          var min=parseInt(document.timer.elements[0].value);
-          var sec=parseInt(document.timer.elements[1].value);
+          var min=document.timer.elements[0].value;
+          var sec=document.timer.elements[1].value;
           
           if( (min=="") && (sec=="") )
           {
@@ -54,21 +54,23 @@
             tmWrite(min*60+sec-1);
           }
         }
+
+        // setInterval("hyoji()",1000);
         
         //残り時間を書き出す関数
         function tmWrite(int)
         {
           int = parseInt(int);
-          alert("check");          
           if (int<=0)
           {
             reSet();
             alert("時間です！");
           }
           else
-          {
-            // 残り分数はintを60で割って切り捨てる。 残り秒数はintを60で割った余り
-            document.getElementById("diplayTimer").textContent = (Math.floor(int/60) + ":" + int % 60);
+          { 
+            var min = Math.floor(int/60); // // 残り分数はintを60で割って切り捨てる。
+            var sec = int % 60; // 残り秒数はintを60で割った余り
+            document.getElementById("displayTimer").innerHTML = min + ":" + sec;
 
             // document.timer.elements[0].value=
             // document.timer.elements[0].disabled=false;
@@ -76,6 +78,8 @@
             // document.timer.elements[1].value=int % 60;
           }
         }
+
+        setInterval("hyoji()",1000);
         
         //フォームを初期状態に戻す（リセット）関数
         function reSet()
