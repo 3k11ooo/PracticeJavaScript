@@ -23,5 +23,7 @@ body{
     font-size: 38px;
     height: 100px;
     max-height: 90vh;
-    width: auto;
+    width: 500px;
+    max-width: 90vw;
+    background-color: antiquewhite;
 }
