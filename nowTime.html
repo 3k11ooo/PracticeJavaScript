@@ -26,16 +26,16 @@
 
         var yobi= new Array("日","月","火","水","木","金","土");
         
-        document.write("西暦"+year+"年"+month+"月"+day+"日 "+yobi[week]+"曜日\n");
-        document.write(hour+":",+minute+":"+second);
+        document.getElementById("time").textContent = "西暦"+year+"年"+month+"月"+day+"日 "+yobi[week]+"曜日\n"+hour+":"+minute+":"+second;
+       
     };
     </script>
 </head>
 <body>
+    <div id="time"></div>
     
     <script>
-        nowTime();
-        // setInterval("nowTime()", 1000);
+        setInterval("nowTime()", 1000);
         
     </script>
 </body>
