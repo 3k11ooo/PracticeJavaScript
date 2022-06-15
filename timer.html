@@ -8,120 +8,23 @@
     <title>タイマー</title>
 
 
-    <script>
-
-        var timer1; //タイマーを格納する変数（タイマーID）の宣言
-        var min; // タイマーの分を格納する変数
-        var sec; // タイマーの秒を格納する変数
-        
-        
-        //カウントダウン関数を1000ミリ秒毎に呼び出す関数
-        function cntStart(num)
-        {
-          switch (num) {
-            case 0: //タイマー開始関数
-              document.timer.style.visibility="hidden"; // テキストボックス
-              // document.timer.elements[1].style.visibility="hidden"; // テキストボックス秒
-              document.timerButton.elements[0].disabled=true; // スタートボタン
-              document.timerButton.elements[2].disabled=true; // リセットボタン
-              timer1=setInterval("countDown()",1000);
-              break;
-
-            case 1: //タイマー停止関数
-              document.timer.style.visibility="visible";
-              // document.timer.elements[1].style.visibility="visible";
-              document.timerButton.elements[0].disabled=false; // スタートボタン
-              document.timerButton.elements[2].disabled=false; // リセットボタン
-              clearInterval(timer1);
-              break;
-
-            default:
-              break;
-          }
-        }
-
-        //カウントダウン関数
-        function countDown()
-        {
-          // テキストボックスの値を取得している。
-          min=document.timer.elements[0].value;
-          sec=document.timer.elements[1].value;
-          
-          if( (min=="") && (sec=="") )
-          {
-            alert("時刻を設定してください！");
-            reSet();
-          }
-          else
-          {
-            if (min=="") min=0;
-            min=parseInt(min);
-            
-            if (sec=="") sec=0;
-            sec=parseInt(sec);
-            
-            tmWrite(min*60+sec-1);
-          }
-        }
-
-        // setInterval("hyoji()",1000);
-        
-        //残り時間を書き出す関数
-        function tmWrite(int)
-        {
-          document.getElementById("displayTimer").innerHTML = "";
-          int = parseInt(int);
-          if (int<=0)
-          {
-            reSet();
-            alert("時間です！");
-          }
-          else
-          {
-            min = Math.floor(int/60); // // 残り分数はintを60で割って切り捨てる。
-            sec = int % 60; // 残り秒数はintを60で割った余り
-            document.timer.elements[0].value=min;
-            document.timer.elements[1].value=sec;
-            document.getElementById("displayTimer").innerHTML = min + ":" + sec;
-            // alert(display);
-
-            // document.timer.elements[0].value=
-            // document.timer.elements[0].disabled=false;
-            // 残り秒数はintを60で割った余り
-            // document.timer.elements[1].value=int % 60;
-          }
-        }
-
-        // setInterval("hyoji()",1000);
-        
-        //フォームを初期状態に戻す（リセット）関数
-        function reSet()
-        {
-          document.getElementById("displayTimer").innerHTML = "時刻を設定してください！";
-          document.timer.elements[0].value="";
-          document.timer.elements[1].value="";
-          document.timer.style.visibility="visible";
-          document.timerButton.elements[0].disabled=false;
-          document.timerButton.elements[2].disabled=false;
-          clearInterval(timer1);
-        }  
-          
-    </script>
+    <script></script>
 </head>
 <body>
   <div id="displayTimer">
     時刻を設定してください！
   </div>
-    <form name="timer">
-        <input type="text" value="">分<br>
-        <input type="text" value="">秒<br>
-    </form>
-    <form name="timerButton">
-        <input type="button" value="スタート" onclick="cntStart(0)">
-        <input type="button" value="ストップ" onclick="cntStart(1)">
-        <input type="button" value="リセット" onclick="reSet()">
-    </form>
+<canvas id="visual"></canvas>
+  <form name="timer">
+      <input type="text" value="">分<br>
+      <input type="text" value="">秒<br>
+  </form>
+  <form name="timerButton">
+      <input type="button" value="スタート" onclick="cntStart(0)">
+      <input type="button" value="ストップ" onclick="cntStart(1)">
+      <input type="button" value="リセット" onclick="reSet()">
+  </form>
 
-    
+  <script src="js/main.js"></script>
 </body>
 </html>

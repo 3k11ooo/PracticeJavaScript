@@ -27,3 +27,8 @@ body{
     max-width: 90vw;
     background-color: antiquewhite;
 }
+
+#visual{
+    position: relative;
+
+}
