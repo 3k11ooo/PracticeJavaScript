@@ -74,10 +74,3 @@ function rotateAnimation(){
 
     cxt.restore() ;
 }
-
-
-
-
-function getRandomInt(max) { // ランダム生成
-    return Math.floor(Math.random() * max);
-}
