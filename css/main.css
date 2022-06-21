@@ -32,3 +32,8 @@ body{
     position: relative;
 
 }
+
+#waku{
+    position: relative;
+    background-color: black;
+}
