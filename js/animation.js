@@ -41,10 +41,12 @@ function startAnimation(){
     var loop = (st / maxDegree) * 1000; // 1枚あたりの時間(ms)
     console.log(st);
     timerAnimation = setInterval("rotateAnimation()", loop );
+    document.operator.elements[0].disabled=true; // startbutton disabled -> true
 }
 
 // ストップボタン
 function stopAnimation() {
+    document.operator.elements[0].disabled=false; // startbutton disabled -> false
     clearInterval(timerAnimation);
 }
 
