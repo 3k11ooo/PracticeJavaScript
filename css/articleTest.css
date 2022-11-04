@@ -1,0 +1,12 @@
+#main{
+    max-width: 996px;
+    background: #f0ece5;
+
+}
+#post-dashboard a{
+    color: black!important;
+}
+button{
+    width: 32px !important;
+    height: 26px !important;
+}

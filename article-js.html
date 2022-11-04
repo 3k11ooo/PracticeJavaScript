@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article-test-js</title>
+    <link rel="stylesheet" href="css/articleTest.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+    rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+    <main class="container" id="main">
+        <!-- 全体 -->
+        <div class="px-lg-4 px-0 py-4 mw-100"> 
+            <!-- タイトル -->
+            <div class="text-secondary text-center fs-2 p-lg-3"> 
+                記事の管理
+            </div>
+             <!-- 記事一覧 -->
+            <div class="p-3" id="post-dashboard">
+                <!-- 記事グリッドのタイトル -->
+                <div class="row p-lg-3"> 
+                    <!-- タイトル -->
+                    <div class="col-lg-10 col-7 text-secondary text-start fs-6"> 
+                        タイトル
+                    </div>
+                    <!-- オプション -->
+                    <div class="col-lg-2 col-5 text-secondary text-center fs-6"> 
+                        オプション
+                    </div>
+                </div>
+                <!-- 遷移させたいページ -->
+                <div id="pageBody">
+                    <!-- 記事一覧 --> 
+                    <form id="article-1" class="row py-3 px-lg-3 border-bottom border-2 border-secondary">  <!-- １つのページに表示する分だけループさせたい -->
+                        <!-- 記事タイトル -->
+                        <a href="https://www.youtube.com/watch?v=sOYtf0CuJd8" class="col-lg-10 col-7 text-decoration-none text-black text-start overflow-hidden fs-6 text-truncate">事務局よりご連絡・会員情報の変更は事務局までご連絡ください。</a>
+                        <!-- オプションアイコン -->
+                        <div class="col-lg-2 col-5 row mx-auto justify-content-center"> 
+                                <!-- 記事編集ボタン bootstrap icons pencil -->
+                                <button class="col-6 p-0 me-lg-3 me-2 btn btn-secondary"><a href="https://www.youtube.com/watch?v=VV9TpgHAUUk"><img src="./src/pencil.svg" class="align-middle"></a></button> 
+                                <!-- 記事削除ボタン bootstrap icons trash -->
+                                <button class="col-6 p-0 ms-1 btn btn-danger"><a href="https://www.youtube.com/watch?v=KOr4xlhSE40"><img src="./src/trash.svg" class=""></a></button> 
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- ページバー bootstrap pagination -->
+            <nav><ul class="pagination justify-content-center" id="pagination"></ul></nav>
+        </div>
+    </main>
+    <script>
+        //define functions
+        function setPage(){
+            const allArticle = document.getElementById('pageBody').getElementsByTagName('form'); //記事の数
+            // console.log("aritcle:", allArticle);
+            const articleParPage = 2; //1ページに表示する記事の数
+            let articleArray = []; //全ての記事を格納配列
+            let pageArray = []; //ページごとに表示する記事の番号を格納した配列
+
+            for(let i=0; i<allArticle.length; i++){
+                articleArray[i] = allArticle[i]; 
+            }
+            for(let i = 0; i<Math.ceil(allArticle.length/articleParPage); i++){
+                let j = i* articleParPage;
+                let p = articleArray.slice(j, j + articleParPage);
+                pageArray.push(p);
+            }
+            return pageArray;  // ページの最大数を返す
+        }
+        function createPage(page, pageArray){
+            for(i=0; i<pageArray.length; i++){ 
+                for(j=0; j<pageArray[i].length; j++){ // クエリの番号とページ番号の照合
+                    if(i != page - 1) // 不一致の場合
+                        pageArray[i][j].className += " d-none";
+                    else // 一致の場合
+                        pageArray[i][j].className += " d-flex";
+                }
+            }
+            return true;
+        }
+        function CreatePagination(page, maxPageNum){ // ページネーションを作る
+            // ページネーション
+            let html = ' ';
+            // 前へ
+            if (page > 1)
+                html += `<li class="page-item"><a class="page-link" href="?page=${page - 1}">前へ</a></li>`; 
+            // 最初のページ
+            if (page > 2)
+                html += `<li class="page-item"><a class="page-link" href="?page=1">1</a></li>`; 
+            // 数字
+            for (let i = page-1; i<page+2 && i<maxPageNum+1; i++){
+                if (i < 1) continue;
+                if (i == page) {
+                    html += `<li class="page-item active"><a class="page-link" href="?page=${i}" >${i}</a></li>`;
+                    continue;
+                }
+                html += `<li class="page-item"><a class="page-link" href="?page=${i}">${i}</a></li>`; 
+            }
+            // 最後のページ
+            if(page < maxPageNum - 1)
+                html += `<li class="page-item"><a class="page-link" href="?page=${maxPageNum}">${maxPageNum}</a></li>`;
+            // 次へ
+            if (page != maxPageNum)
+                html += `<li class="page-item"><a class="page-link" href="?page=${page + 1}">次へ</a></li>`; //
+
+            document.getElementById('pagination').innerHTML = html;
+            return 0;
+        }
+
+
+
+
+        //start
+        const url = new URL(location);
+        // const allArticle = document.getElementById('pageBody').getElementsByTagName('form'); //記事の数
+        // ページ数取得
+        let page = Number(url.searchParams.get('page')); // 現在のページ番号
+        const allArticleArray = setPage();
+        const maxPage = allArticleArray.length; // ページの最大数を取得
+        if (page < 1 ){ 
+            // page = 1;
+            url.searchParams.set('page', '1');
+            // ページの最大数を設定
+            location.href = url.toString();
+        }
+        else
+            console.log("search: " + url.searchParams.get('page') + "| 現在のページ: " + page + "| 最大ページ数: " + maxPage);
+            let canCreatPage = createPage(page, allArticleArray);
+            if(canCreatPage == true)
+               CreatePagination(page, maxPage);
+        
+ 
+    </script>
+</body>
+</html>
